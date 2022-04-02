@@ -1,10 +1,15 @@
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, TextInput, ScrollView, TouchableWithoutFeedback, Button, Keyboard, KeyboardAvoidingView } from 'react-native'
+import {
+    View, Text, StyleSheet, StatusBar,
+    TouchableOpacity, TextInput, ScrollView, TouchableWithoutFeedback,
+    Button, Keyboard, KeyboardAvoidingView
+} from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../components/Logo';
 import Botton from '../../components/Botton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../components/Loader';
+
 
 import axios from 'axios'
 
@@ -20,14 +25,15 @@ const Login = ({ navigation }) => {
         try {
             const token = await AsyncStorage.getItem('token');
             if (token) {
-                const userName = await AsyncStorage.getItem('username');
-
+              
+                const Name = await AsyncStorage.getItem('name');
                 console.log('token : ', token);
                 setLogin(true);
                 setUsername(token);
-                const Name = await AsyncStorage.getItem('name');
                 setUName(Name);
-                navigation.replace('Tab', { id: 1 });
+                resetAndNavigate(navigation, 'Tab')
+                console.log('User account signed in!')
+                navigation.navigate('Tab')
             }
         } catch (e) {
             console.log(e)
@@ -38,6 +44,13 @@ const Login = ({ navigation }) => {
         checkLogin();
     }, [])
 
+    const resetAndNavigate = (navigation, name, params) => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name, params }],
+        });
+    
+    }
 
     const loginCheck = () => {
         const options = {
@@ -55,7 +68,6 @@ const Login = ({ navigation }) => {
             'https://devapi.thewellnesscorner.com/auth/login', data, options)
             .then(async (response) => {
                 const { data } = response;
-                console.log(response.data);
                 setUsername(data.member.email);
                 setLogin(true);
                 const uname = data.member.firstName + ' ' + data.member.lastName
@@ -63,14 +75,17 @@ const Login = ({ navigation }) => {
                 await AsyncStorage.setItem('username', data.member.email);
                 await AsyncStorage.setItem('name', uname);
                 setUName(uname);
-                navigation.replace('Tab');
+                setSubmitted(false);
+                resetAndNavigate(navigation, 'Tab')
+                console.log('User account signed in!')
+                navigation.navigate('Tab')
             }).catch((err) =>
                 console.log(err)
             );
     }
 
 
-    const submit = async () => {
+    const submit =() => {
         if (email == '') {
             setError({ email: 'Email is Required' })
             return false;
@@ -80,8 +95,8 @@ const Login = ({ navigation }) => {
             return false;
         }
         if (email != '' && password != '') {
-            // setSubmitted(true);
-           // await AsyncStorage.setItem('token', 'yogesh.sharma@truworth.com');
+             setSubmitted(true);
+            // await AsyncStorage.setItem('token', 'yogesh.sharma@truworth.com');
             loginCheck();
         }
     }
@@ -144,7 +159,7 @@ const Login = ({ navigation }) => {
                                             {error.password ? (<Text style={styles.error}>{error.password}</Text>) : <Text></Text>}
 
 
-                                            <Botton name='Sign In' handler={() => submit()} disabled={submitted} />
+                                            <Botton name='Sign In' handler={submit} disabled={submitted} />
                                             <View style={{
                                                 flexDirection: 'row',
                                                 padding: 10, justifyContent: 'center',
@@ -159,14 +174,14 @@ const Login = ({ navigation }) => {
                                                     <Text style={styles.textSignIn}> Sign Up</Text>
                                                 </TouchableOpacity>
                                             </View>
-
+                                            
                                         </View>
                                     </TouchableWithoutFeedback>
                                 </KeyboardAvoidingView>
-                                {submitted && <Loader />}
+                                {submitted && <Loader size={'giant'}  status={'primary'}/>}
                             </View>
                         </View>
-
+                       
                     </ScrollView>
                 </LinearGradient>
             </View>

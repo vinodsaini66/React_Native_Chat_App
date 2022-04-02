@@ -133,7 +133,7 @@ const Users = ({ navigation }) => {
   };
   return (
     <>
-      {isLoading ? <Loader /> :
+      {isLoading ? <Loader size={'giant'}  status={'primary'}/> :
 
         <View style={{ backgroundColor: 'white', flex: 1 }}>
 
@@ -149,7 +149,7 @@ const Users = ({ navigation }) => {
             />
           }
 
-          <FlatList
+          {friends.length > 0 ? <FlatList
             showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item.email}
             data={friends}
@@ -157,7 +157,6 @@ const Users = ({ navigation }) => {
               return (
                 <UserBox
                   title={item.name}
-                  image={item.image}
                   message={item.phone}
                   time={moment(item.time).startOf('day').fromNow()}
                   email={item.email}
@@ -165,7 +164,14 @@ const Users = ({ navigation }) => {
                 />
               );
             }}
+          /> : <UserBox
+            title={'Test User'}
+            message={'8233639160'}
+            time={moment().startOf('hour').fromNow()}
+            email={'test@gmail.com'}
+            navigation={navigation}
           />
+          }
 
         </View>}
 
@@ -175,7 +181,7 @@ const Users = ({ navigation }) => {
 
 
 const UserBox = (props) => {
-  const { title, image, message, navigation, time, email } = props;
+  const { title, message, navigation, time, email } = props;
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Message', { title: title, email: email })}>
       <View style={{

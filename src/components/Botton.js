@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const Botton = (props) => {
+const Botton = ({handler,name}) => {
     return (
         <TouchableOpacity style={{
             backgroundColor: 'white',
@@ -12,10 +12,14 @@ const Botton = (props) => {
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: 1,
-            marginLeft:5,
-        }} 
-        onPress={()=>props.handler()}>
-            <Text style={{ color: '#E7717A', fontSize: 20,fontWeight:'400' }}>{props.name}</Text>
+            marginLeft: 5,
+        }}
+            onPress={() => handler()}>
+            <Text style={{
+                color: '#E7717A',
+                fontSize: 20,
+                fontWeight: '400'
+            }}>{name}</Text>
         </TouchableOpacity>
     )
 }

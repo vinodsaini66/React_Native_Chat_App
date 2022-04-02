@@ -6,6 +6,7 @@
  * @flow strict-local
  */
 
+ import 'react-native-gesture-handler';
 import React, { createRef, useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -58,7 +59,7 @@ const App = () => {
             <LoginContext.Provider value={{ isLogin, setLogin, username, setUsername, UName, setUName }}>
               <ChatProvider>
                 <Stack.Navigator
-                  initialRouteName='SignUp'
+                  initialRouteName='Login'
                   screenOptions={{
                     headerStyle: {
                       backgroundColor: '#f4511e',
@@ -68,6 +69,8 @@ const App = () => {
                     headerTitleStyle: {
                       fontWeight: 'bold',
                     },
+                    animationTypeForReplace:'push',
+                    animation:'slide_from_left'
                   }}>
                   <Stack.Screen
                     name='Login'

@@ -111,7 +111,7 @@ const Profile = ({ navigation }) => {
         onPress={async () => {
 
           await AsyncStorage.removeItem('token')
-          navigation.navigate('Login');
+          navigation.replace('Login');
         }}>
         <Icon style={{ width: 22, height: 22 }}
           name='power-outline' fill='white' />

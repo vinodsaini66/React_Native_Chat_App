@@ -32,7 +32,9 @@ const SignUp = ({ navigation }) => {
                 setUsername(token);
                 const Name = await AsyncStorage.getItem('name');
                 setUName(Name);
-                navigation.replace('Tab');
+                resetAndNavigate(navigation, 'Tab')
+                console.log('User account signed in!')
+                navigation.navigate('Tab')
             }
         } catch (e) {
             console.log(e)
@@ -58,7 +60,6 @@ const SignUp = ({ navigation }) => {
                 }
 
             } else {
-
                 getUser = [user];
                 check = 1;
             }
@@ -68,14 +69,14 @@ const SignUp = ({ navigation }) => {
                 if (userstring) {
                     setUsername(email);
                     setLogin(true);
-                   
                     await AsyncStorage.setItem('token', email);
                     await AsyncStorage.setItem('username', name);
                     await AsyncStorage.setItem('name', name);
                     setUName(name);
-                   
-                    
-                    navigation.replace('Tab');
+
+                    resetAndNavigate(navigation, 'Tab')
+                    console.log('User account signed in!')
+                    navigation.navigate('Tab')
                 }
             } else {
                 alert('User Already Exists');
@@ -86,6 +87,13 @@ const SignUp = ({ navigation }) => {
         } catch (e) {
             console.log(e)
         }
+    }
+    const resetAndNavigate = (navigation, name, params) => {
+        navigation.reset({
+            index: 0,
+            routes: [{ name, params }],
+        });
+    
     }
 
     const submit = () => {
@@ -213,7 +221,10 @@ const SignUp = ({ navigation }) => {
                                                 }}
                                             />
                                             {error.password ? (<Text style={styles.error}>{error.password}</Text>) : <Text></Text>}
-                                            <Botton name='Sign Up' handler={() => submit()} disabled={submitted} />
+                                            <Botton
+                                                name='Sign Up'
+                                                handler={submit}
+                                                disabled={submitted} />
                                             <View style={{
                                                 flexDirection: 'row',
                                                 padding: 10, justifyContent: 'center',
@@ -228,11 +239,12 @@ const SignUp = ({ navigation }) => {
                                                     <Text style={styles.textSignIn}> Sign In</Text>
                                                 </TouchableOpacity>
                                             </View>
-                                            {submitted && <Loader />}
+                                         
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                 </KeyboardAvoidingView>
+                                {submitted && <Loader size={'giant'}  status={'primary'}/>}
                             </View>
                         </View>
                     </ScrollView>
