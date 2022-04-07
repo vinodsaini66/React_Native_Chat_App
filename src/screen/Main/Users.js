@@ -125,7 +125,7 @@ const Users = ({ navigation }) => {
   );
   const navigateBack = () => {
     console.log('go to Scratch');
-    navigation.navigate('ScratchCardTest');
+    navigation.navigate('Header');
   };
 
   const navigateRight = () => {

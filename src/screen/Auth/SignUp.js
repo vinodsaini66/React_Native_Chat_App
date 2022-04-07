@@ -20,30 +20,8 @@ const SignUp = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState({});
     const [submitted, setSubmitted] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const { isLogin, setLogin, username, setUsername, UName, setUName } = useContext(LoginContext);
-    const checkLogin = async () => {
-        try {
-            const token = await AsyncStorage.getItem('token');
-            if (token) {
-                const userName = await AsyncStorage.getItem('username');
-                console.log('token : ', token);
-                setLogin(true);
-                setUsername(token);
-                const Name = await AsyncStorage.getItem('name');
-                setUName(Name);
-                resetAndNavigate(navigation, 'Tab')
-                console.log('User account signed in!')
-                navigation.navigate('Tab')
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    useEffect(() => {
-        checkLogin();
-    }, [])
+    const { setLogin, setUsername, setUName } = useContext(LoginContext);
+    
 
     const saveUser = async (user) => {
         try {

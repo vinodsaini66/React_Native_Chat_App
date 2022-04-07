@@ -9,40 +9,15 @@ import Logo from '../../components/Logo';
 import Botton from '../../components/Botton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from '../../components/Loader';
-
-
 import axios from 'axios'
-
 import LoginContext from '../../context/LoginContext';
+
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState({});
     const { isLogin, setLogin, username, setUsername, UName, setUName } = useContext(LoginContext);
     const [submitted, setSubmitted] = useState(false);
-
-    const checkLogin = async () => {
-        try {
-            const token = await AsyncStorage.getItem('token');
-            if (token) {
-              
-                const Name = await AsyncStorage.getItem('name');
-                console.log('token : ', token);
-                setLogin(true);
-                setUsername(token);
-                setUName(Name);
-                resetAndNavigate(navigation, 'Tab')
-                console.log('User account signed in!')
-                navigation.navigate('Tab')
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-
-    useEffect(() => {
-        checkLogin();
-    }, [])
 
     const resetAndNavigate = (navigation, name, params) => {
         navigation.reset({
@@ -77,7 +52,6 @@ const Login = ({ navigation }) => {
                 setUName(uname);
                 setSubmitted(false);
                 resetAndNavigate(navigation, 'Tab')
-                console.log('User account signed in!')
                 navigation.navigate('Tab')
             }).catch((err) =>
                 console.log(err)

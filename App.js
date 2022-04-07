@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
- import 'react-native-gesture-handler';
-import React, { createRef, useState, useEffect } from 'react';
+import 'react-native-gesture-handler';
+import React, { createRef, useState, useEffect ,useContext} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +17,7 @@ import Home from './src/screen/Main/Home';
 import Users from './src/screen/Main/Users';
 import LoginContext from './src/context/LoginContext';
 import BottomTabNav from './src/navigation/BottomTabNav';
-
+import SplashScreen from 'react-native-splash-screen'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
@@ -39,6 +39,8 @@ import AddPhone from './src/screen/Auth/AddPhone';
 import Otp from './src/screen/Auth/Otp';
 import ModelUI from './src/testScreen/ModelUI';
 import BottomSheetExmple from './src/screen/Main/BottomSheet';
+import StickyHeader from './src/screen/Main/StickyHeader';
+
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -47,7 +49,9 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [UName, setUName] = useState('');
 
-
+  useEffect(()=>{
+    SplashScreen.hide();
+  });
 
   return (
     <>
@@ -59,7 +63,7 @@ const App = () => {
             <LoginContext.Provider value={{ isLogin, setLogin, username, setUsername, UName, setUName }}>
               <ChatProvider>
                 <Stack.Navigator
-                  initialRouteName='Login'
+                  // initialRouteName='Login'
                   screenOptions={{
                     headerStyle: {
                       backgroundColor: '#f4511e',
@@ -69,9 +73,14 @@ const App = () => {
                     headerTitleStyle: {
                       fontWeight: 'bold',
                     },
-                    animationTypeForReplace:'push',
-                    animation:'slide_from_left'
+                    animationTypeForReplace: 'push',
+                    animation: 'slide_from_left'
                   }}>
+
+                  <Stack.Screen
+                    name='ResolveAuth'
+                    component={ResolveAuth}
+                  />
                   <Stack.Screen
                     name='Login'
                     component={Login}
@@ -198,7 +207,15 @@ const App = () => {
                     name='BottomSheet'
                     component={BottomSheetExmple}
                   />
+
+                  <Stack.Screen
+                    name='Header'
+                    component={StickyHeader}
+                  />
+
                 </Stack.Navigator>
+
+                
 
 
               </ChatProvider>
@@ -210,6 +227,31 @@ const App = () => {
   );
 };
 
+const ResolveAuth = ({navigation}) => {
+  const { isLogin, setLogin, username, setUsername, UName, setUName } = useContext(LoginContext);
+
+  const checkLogin = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        const Name = await AsyncStorage.getItem('name');
+        setLogin(true);
+        setUsername(token);
+        setUName(Name);
+        navigation.replace('Tab')
+      }else{
+        navigation.replace('Login')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    checkLogin();
+  }, [])
+  return null;
+}
 
 
 export default App;
