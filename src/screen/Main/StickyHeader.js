@@ -63,7 +63,7 @@ const StickyHeader = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor="#1c1c1c" style="light" />
+           
             <Animated.View style={[styles.header, { transform: [{ translateY }] }]}>
                 <Header {...{ headerHeight }} />
             </Animated.View>
@@ -72,7 +72,7 @@ const StickyHeader = () => {
                 contentContainerStyle={{ paddingTop: headerHeight }}
                 onScroll={handleScroll}
                 ref={ref}
-                onMomentumScrollEnd={handleSnap}
+                // onMomentumScrollEnd={handleSnap}
                 data={data}
                 renderItem={ListItem}
                 keyExtractor={(item, index) => `list-item-${index}-${item.color}`}
@@ -84,7 +84,7 @@ const StickyHeader = () => {
 const styles = StyleSheet.create({
     header: {
         position: 'absolute',
-        backgroundColor: '#1c1c1c',
+        backgroundColor: 'white',
         left: 0,
         right: 0,
         width: '100%',
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#000',
+        backgroundColor: 'white',
     },
 });
 

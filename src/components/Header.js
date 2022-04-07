@@ -39,14 +39,14 @@ const styles = StyleSheet.create({
   subHeader: {
     width: '100%',
     paddingHorizontal: 10,
-    backgroundColor: '#1c1c1c',
+    backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   conversation: {color: 'white', fontSize: 16, fontWeight: 'bold'},
   searchText: {
-    color: '#8B8B8B',
+    color: 'white',
     fontSize: 17,
     lineHeight: 22,
     marginLeft: 8,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   searchBox: {
     paddingVertical: 8,
     paddingHorizontal: 10,
-    backgroundColor: '#0F0F0F',
+    backgroundColor: 'gray',
     borderRadius: 10,
     width: '100%',
     alignItems: 'center',

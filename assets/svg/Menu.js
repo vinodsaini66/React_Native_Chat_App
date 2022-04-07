@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, {Path} from 'react-native-svg';
 
 function SvgComponent(props) {
-  const {size = 20, color = 'white'} = props;
+  const {size = 20, color = 'red'} = props;
   return (
     <Svg
       height={size}
