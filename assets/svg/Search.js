@@ -1,8 +1,8 @@
 import React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 function SvgComponent(props) {
-  const {size = 18, color = 'white'} = props;
+  const { size = 18, color = 'gray' } = props;
   return (
     <Svg
       height={size}

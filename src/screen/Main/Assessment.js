@@ -35,15 +35,15 @@ const Assessment = ({ navigation }) => {
         }
     }
     useEffect(() => {
-        console.log('current : ', current)     
+        console.log('current : ', current)
         const backHandler = BackHandler.addEventListener(
             "hardwareBackPress",
             backAction
         );
         return () => {
-            console.log('UnMount',current);
+            console.log('UnMount', current);
             backHandler.remove();
-        };   
+        };
     }, [current]);
 
     useEffect(() => {
@@ -61,16 +61,16 @@ const Assessment = ({ navigation }) => {
 
     }, [selectedAns]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             "hardwareBackPress",
             backAction
         );
         return () => {
-            console.log('UnMount',current);
+            console.log('UnMount', current);
             backHandler.remove();
-        };  
-    },[]);
+        };
+    }, []);
 
 
     const question = [
@@ -181,7 +181,7 @@ const Assessment = ({ navigation }) => {
                     height: 90,
                     justifyContent: 'center'
                 }}>
-                    <TouchableOpacity onPress={() => !backAction() && navigation.goBack() }>
+                    <TouchableOpacity onPress={() => !backAction() && navigation.goBack()}>
                         <MaterialIcon name={'arrow-left'} size={30} color="white" style={{
                             marginLeft: 12,
                             marginBottom: 5

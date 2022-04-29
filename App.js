@@ -7,7 +7,7 @@
  */
 
 import 'react-native-gesture-handler';
-import React, { createRef, useState, useEffect ,useContext} from 'react';
+import React, { createRef, useState, useEffect, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -49,7 +49,7 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [UName, setUName] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     SplashScreen.hide();
   });
 
@@ -215,9 +215,6 @@ const App = () => {
 
                 </Stack.Navigator>
 
-                
-
-
               </ChatProvider>
             </LoginContext.Provider>
           </NavigationContainer>
@@ -227,7 +224,7 @@ const App = () => {
   );
 };
 
-const ResolveAuth = ({navigation}) => {
+const ResolveAuth = ({ navigation }) => {
   const { isLogin, setLogin, username, setUsername, UName, setUName } = useContext(LoginContext);
 
   const checkLogin = async () => {
@@ -239,7 +236,7 @@ const ResolveAuth = ({navigation}) => {
         setUsername(token);
         setUName(Name);
         navigation.replace('Tab')
-      }else{
+      } else {
         navigation.replace('Login')
       }
     } catch (e) {

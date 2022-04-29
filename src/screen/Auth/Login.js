@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
             index: 0,
             routes: [{ name, params }],
         });
-    
+
     }
 
     const loginCheck = () => {
@@ -59,7 +59,7 @@ const Login = ({ navigation }) => {
     }
 
 
-    const submit =() => {
+    const submit = () => {
         if (email == '') {
             setError({ email: 'Email is Required' })
             return false;
@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
             return false;
         }
         if (email != '' && password != '') {
-             setSubmitted(true);
+            setSubmitted(true);
             // await AsyncStorage.setItem('token', 'yogesh.sharma@truworth.com');
             loginCheck();
         }
@@ -148,14 +148,14 @@ const Login = ({ navigation }) => {
                                                     <Text style={styles.textSignIn}> Sign Up</Text>
                                                 </TouchableOpacity>
                                             </View>
-                                            
+
                                         </View>
                                     </TouchableWithoutFeedback>
                                 </KeyboardAvoidingView>
-                                {submitted && <Loader size={'giant'}  status={'primary'}/>}
+                                {submitted && <Loader size={'giant'} status={'primary'} />}
                             </View>
                         </View>
-                       
+
                     </ScrollView>
                 </LinearGradient>
             </View>

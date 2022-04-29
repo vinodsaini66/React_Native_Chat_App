@@ -133,7 +133,7 @@ const Users = ({ navigation }) => {
   };
   return (
     <>
-      {isLoading ? <Loader size={'giant'}  status={'primary'}/> :
+      {isLoading ? <Loader size={'giant'} status={'primary'} /> :
 
         <View style={{ backgroundColor: 'white', flex: 1 }}>
 

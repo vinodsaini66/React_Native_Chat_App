@@ -7,10 +7,11 @@ import {
   View,
 } from 'react-native';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
 const ListItem = (props) => {
-  const {item} = props;
-  const {name, color, message} = item;
+  const { item } = props;
+  const { name, color, message } = item;
   return (
     <TouchableOpacity style={styles.listItem}>
       <View

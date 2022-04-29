@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native'
-import React, { useEffect ,useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 import Orientation from 'react-native-orientation';
@@ -15,12 +15,12 @@ const Fullscreen = ({ navigation, route }) => {
 
     Orientation.lockToLandscape();
     return () => {
-      Orientation.lockToPortrait(); 
+      Orientation.lockToPortrait();
     }
   }, [])
   return (
     <>
-      <StatusBar animated={true} backgroundColor="#DA0845" />
+      {/* <StatusBar animated={true} backgroundColor="#DA0845" /> */}
       <View style={{
         backgroundColor: 'gray',
         flex: 1,
@@ -29,15 +29,15 @@ const Fullscreen = ({ navigation, route }) => {
       >
         <VideoPlayer
           ref={player}
-          source={ url }
+          source={url}
           style={styles.video}
           fullscreen={true}
           repeat={true}
           paused={false}
           disableFullscreen={false}
-         
+
           navigator={navigation}
-         
+
           bufferConfig={{
             minBufferMs: 15000,
             maxBufferMs: 50000,
@@ -45,7 +45,7 @@ const Fullscreen = ({ navigation, route }) => {
             bufferForPlaybackAfterRebufferMs: 5000
           }}
 
-          // onLoad={() =>player.current.seek(currentTime)}
+        // onLoad={() =>player.current.seek(currentTime)}
         />
       </View >
     </>

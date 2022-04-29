@@ -1,17 +1,17 @@
-import React, { useRef } from 'react';
-import { Animated, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
+import { Animated, SafeAreaView, StatusBar, StyleSheet, View, Text } from 'react-native';
 import Header from '../../components/Header';
 import ListItem from '../../components/ListItem';
 import { generateData } from '../../constant/data';
-
+import axios from 'axios';
 
 
 const { diffClamp } = Animated;
 const headerHeight = 58 * 2;
 
 const StickyHeader = () => {
-    const data = generateData(50);
 
+    const [data, setData] = useState(generateData(50));
     const ref = useRef(null);
 
     const scrollY = useRef(new Animated.Value(0));
@@ -27,6 +27,41 @@ const StickyHeader = () => {
     translateY.addListener(({ value }) => {
         translateYNumber.current = value;
     });
+
+    useEffect(() => {
+        axios.get('https://gorest.co.in/public/v2/users').then((response) => {
+            console.log(response.data);
+            setData(response.data);
+            console.log(data);
+        }).catch((err) => {
+            console.log(err);
+        })
+
+    }, [])
+
+    const renderItem = useCallback(({ item }) => (
+
+        <View style={{
+            // height: 150,
+            justifyContent: 'center',
+            marginHorizontal: 15,
+            marginBottom: 5,
+            marginVertical: 15,
+            backgroundColor: 'white',
+            elevation: 10,
+            padding: 15,
+            borderRadius: 15,
+        }}>
+
+            <Text style={styles.text}>EID :  <Text style={styles.insideText}>{item.id} </Text></Text>
+            <Text style={styles.text}>Name : <Text style={styles.insideText}>{item.name} </Text></Text>
+            <Text style={styles.text}>Email : <Text style={styles.insideText}>{item.email} </Text></Text>
+            <Text style={styles.text}>Gender : <Text style={styles.insideText}>{item.gender} </Text></Text>
+            <Text style={styles.text}>Status : <Text style={styles.insideText}>{item.status} </Text></Text>
+
+        </View>
+
+    ));
 
     const handleScroll = Animated.event(
         [
@@ -63,7 +98,7 @@ const StickyHeader = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-           
+
             <Animated.View style={[styles.header, { transform: [{ translateY }] }]}>
                 <Header {...{ headerHeight }} />
             </Animated.View>
@@ -74,7 +109,7 @@ const StickyHeader = () => {
                 ref={ref}
                 // onMomentumScrollEnd={handleSnap}
                 data={data}
-                renderItem={ListItem}
+                renderItem={renderItem}
                 keyExtractor={(item, index) => `list-item-${index}-${item.color}`}
             />
         </SafeAreaView>
@@ -99,6 +134,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
+    text: {
+        color: 'black',
+        fontSize: 15,
+
+        marginBottom: 2
+    },
+    insideText: {
+        color: 'gray',
+        fontSize: 13
+    }
 });
 
 

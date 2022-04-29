@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, Keyboard,StatusBar } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Keyboard, StatusBar } from 'react-native'
 import React, { createRef, useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -38,10 +38,10 @@ const BottomTabNav = (props) => {
                 showKeyboard.remove();
             }
         }
-    },[isKeyboard]);
+    }, [isKeyboard]);
     return (
         <>
-         <StatusBar animated={true} backgroundColor="#DA0845" />
+            {/* <StatusBar animated={true} backgroundColor="#DA0845" /> */}
             <IconRegistry icons={EvaIconsPack} />
             <ApplicationProvider {...eva} theme={eva.light}>
 
@@ -88,7 +88,7 @@ const BottomTabNav = (props) => {
                         component={New}
                         options={{
                             tabBarLabel: 'New',
-                           // unmountOnBlur:true,
+                            // unmountOnBlur:true,
                             tabBarIcon: ({ focused }) => {
                                 return (
                                     <LinearGradient
@@ -112,7 +112,7 @@ const BottomTabNav = (props) => {
                             }
                         }}
                     />}
-                    
+
                     <Tab.Screen
                         name="Contact"
                         component={Contact}
@@ -137,9 +137,9 @@ const BottomTabNav = (props) => {
                         }}
                         listeners={({ navigation }) => ({
                             tabPress: async (e) => {
-                               // e.preventDefault();
-                               // await AsyncStorage.removeItem('token')
-                               /// navigation.navigate('Login');
+                                // e.preventDefault();
+                                // await AsyncStorage.removeItem('token')
+                                /// navigation.navigate('Login');
                             }
                         })}
                     />
